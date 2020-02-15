@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- sale.order inherit form view -->
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="name">sale.order.inherit.view.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box">
+                <button name="action_view_purchases" type="object" class="oe_stat_button" icon="fa-file-text-o" attrs="{'invisible': [('total_purchases', '=', 0)]}">
+                    <field name="total_purchases" widget="statinfo" string="Compras"/>
+                    <field name="purchase_order_ids" invisible="1"/>
+                </button>
+            </div>
+            <header>
+                <button name="%(purchase_from_sale_wizard_action)d" type="action"
+                    string="Generar compras" class="btn-default" states="sale"/>
+            </header>
+        </field>
+    </record>
+</odoo>

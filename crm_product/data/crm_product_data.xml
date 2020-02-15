@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="crm_product_probability_0" model="crm.probability">
+            <field name="name">20</field>
+        </record>
+
+        <record id="crm_product_probability_1" model="crm.probability">
+            <field name="name">30</field>
+        </record>
+
+        <record id="crm_product_probability_2" model="crm.probability">
+            <field name="name">90</field>
+        </record>
+
+    </data>
+</odoo>

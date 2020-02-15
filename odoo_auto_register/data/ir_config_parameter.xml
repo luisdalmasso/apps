@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="1">
+        <record id="commission_general_id" model="ir.config_parameter">
+            <field name="key">odoo.auto.register</field>
+            <field name="value">email@gmail.com</field>
+        </record>
+    </data>
+</odoo>

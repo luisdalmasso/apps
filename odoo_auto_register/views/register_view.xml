@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="website_registrarse">
+        <t t-call="website.layout">
+            <t t-set="title">Registrarse</t>
+            <div class="oe_structure">
+                <div class="container" t-ignore="true">
+                    <div class="mt-5 mb-5">
+                        <H4>Registre sus Datos y le enviaremos el usuario para acceder a Odoo</H4>
+                    </div>
+                    <div class="row">
+                        <form action="/validar" class="form-horizontal" method="post">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="form-group">
+                                <label for="name" class="col-12 control-label">Nombre <span style="color: red;">*</span></label>
+                                <div class="col-12">
+                                    <input id="name" type="text" name="name" class="form-control" required="" t-att-value="request.params.get('name', '')" />
+                                </div>
+                            </div>
+                            <div t-att-class="'form-group has-error' if email_exist else 'form-group'">
+                                <label for="email" class="col-12 control-label">E-mail <span style="color: red;">*</span></label>
+                                <div class="col-12">
+                                    <input id="email" type="email" name="email" class="form-control" required=""/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone" class="col-12 control-label">Telefono <span style="color: red;">*</span></label>
+                                <div class="col-12">
+                                    <input id="phone" type="text" name="phone" class="form-control" required="" t-att-value="request.params.get('phone', '')" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="country" class="col-12 control-label">Seleccione pais <span style="color: red;">*</span></label>
+                                <div class="col-12">
+                                    <select id="country" name="country" class="form-control" required="">
+                                        <option t-if="not country" disabled="" selected=""></option>
+                                        <t t-foreach="contries" t-as="c">  
+                                            <option t-if="country == c.id" selected="" t-att-value="c.id"><span t-esc="c.name"/></option>
+                                            <option t-if="country != c.id" t-att-value="c.id"><span t-esc="c.name"/></option>
+                                        </t>
+                                    </select>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="form-group">
+                                <div class="col-sm-offset-4 col-sm-8">
+                                    <button id="submit" type="submit" class="btn btn-primary" >Registrar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="website_registro_exitoso">
+        <t t-set="title">Registro exitoso</t>
+        <t t-call="website.layout">
+            <div class="container">
+                <div>
+                    <div class="text-center">
+                        <br/>
+                        <h1 class="media-heading">¡Felicidades, te has registrado exitosamente!</h1>
+                        <p>Ingresa a tu correo y sabras como comenzar a usar el odoo de Marlon</p>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template> 
+
+    
+
+    <!--
+
+    <template id="website_registrarse" name="Registrarse" page="True">
+        
+        <t t-call="website.layout">
+        
+            <div class="container" t-ignore="true">
+                <div>
+                    <div class="register-container">
+
+                        <div class="text-center">
+                            <br/>
+                            <H4>Registre sus Datos y le enviaremos el usuario para acceder a Odoo</H4>
+                        </div>
+
+                        <div class="row" style="margin-left: 10px; margin-right: 10px;">
+
+                            <form style="margin-top: 20px;" action="/validar" class="form-horizontal" method="post">
+                                
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                
+
+                                <div class="form-group">
+                                    <label for="name" class="col-sm-4 control-label">Nombre <span style="color: red;">*</span></label>
+                                    <div class="col-md-4 col-sm-8">
+                                        <input id="name" type="text" name="name" class="form-control" required="" t-att-value="request.params.get('name', '')" />
+                                    </div>
+                                </div>
+                    
+                                <div t-att-class="'form-group has-error' if email_exist else 'form-group'">
+                                    <label for="email" class="col-sm-4 control-label">E-mail <span style="color: red;">*</span></label>
+                                    <div class="col-md-4 col-sm-8">
+                                        <input id="email" type="email" name="email" class="form-control" required=""/>
+                                        <p class="help-block hidden">El correo indicado no cumple con el formato correcto.</p>
+                                        <t t-if="email_exist">
+                                            <p class="help-block">El correo indicado ya se encuentra registrado.</p>
+                                        </t>
+                                    </div>
+                                </div>
+                    
+                                <div class="form-group">
+                                    <label for="email2" class="col-sm-4 control-label">Confirmar E-mail <span style="color: red;">*</span></label>
+                                    <div class="col-md-4 col-sm-8">
+                                        <input id="email2" type="email" name="email2" class="form-control" required=""/>
+                                        <p class="help-block hidden">Los correos indicados no coinciden.</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="phone" class="col-sm-4 control-label">Telefono <span style="color: red;">*</span></label>
+                                    <div class="col-md-4 col-sm-8">
+                                        <input id="phone" type="text" name="phone" class="form-control" required="" t-att-value="request.params.get('phone', '')" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="country" class="col-sm-4 control-label">Seleccione pais <span style="color: red;">*</span></label>
+                                    <div class="col-md-4 col-sm-8">
+                                        <select id="country" name="country" class="form-control" required="">
+                                            <option t-if="not country" disabled="" selected=""></option>
+                                            <t t-foreach="contries" t-as="c">
+                                              
+                                                <option t-if="country == c.id" selected="" t-att-value="c.id"><span t-esc="c.name"/></option>
+                                                <option t-if="country != c.id" t-att-value="c.id"><span t-esc="c.name"/></option>
+                                            </t>
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <br/>
+                                
+                                <div class="form-group">
+                                    <div class="col-sm-offset-4 col-sm-8">
+                                        <button id="submit" type="submit" class="btn btn-primary" >Registrar</button>
+                                    </div>
+                                </div>
+                            
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    
+    <template id="website_registro_exitoso" name="Registro exitoso" page="True">
+        <t t-call="website.layout">
+            <div class="container">
+                <div>
+                    <div class="text-center">
+                        <br/>
+                        <h1 class="media-heading">¡Felicidades, te has registrado exitosamente!</h1>
+                        <p>Ingresa a tu correo y sabras como comenzar a usar el odoo de Marlon</p>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template> 
+
+-->
+
+</odoo>

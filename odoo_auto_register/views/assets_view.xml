@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="theme_assets" name="Odoo auto register" inherit_id="website.assets_frontend">
+        <xpath expr="." position="inside">
+
+        	<link rel="stylesheet" type="text/less" href='/odoo_auto_register/static/src/less/odoo_auto_register.less' t-ignore="true"/>
+    
+            <script type="text/javascript" src="/odoo_auto_register/static/src/js/odoo_auto_register.js" t-ignore="true"/>
+        
+        </xpath>
+    </template>
+</odoo>

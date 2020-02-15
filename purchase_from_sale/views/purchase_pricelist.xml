@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <!-- purchase.pricelist form view -->
+    <record id="purchase_pricelist_view_form" model="ir.ui.view">
+        <field name="name">purchase.pricelist.view.form</field>
+        <field name="model">purchase.pricelist</field>
+        <field name="arch" type="xml">
+            <form string="Tarifa de compra">
+                <field name="state" invisible="1"/>
+                <header>
+                    <button name="%(load_purchase_pricelist_wizard_action)d" type="action" string="Cargar desde CSV"
+                        class="btn-default" states="draft" context="{'default_pricelist_id': id}"/>
+                    <button name="action_confirm" type="object" string="Confirmar" class="btn-primary" states="draft"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" text="Confirmado" attrs="{'invisible': [('state', '!=', 'done')]}"/>
+                    <div class="oe_title" attrs="{'invisible': [('ref', '=', False)]}">
+                        <h1>
+                            <field name="ref"/>
+                        </h1>
+                    </div>
+                    <group name="main">
+                        <group name="left">
+                            <field name="name"/>
+                            <field name="partner_id" options="{'no_create': 1, 'no_open': 1}"/>
+                        </group>
+                        <group name="right">
+                            <field name="date"/>
+                            <field name="user_id" options="{'no_create': 1, 'no_open': 1}"/>
+                        </group>
+                    </group>
+                    <field name="line_ids">
+                        <tree editable="bottom">
+                            <field name="product_id" options="{'no_create': 1, 'no_open': 1}"/>
+                            <field name="price"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- purchase.pricelist tree view -->
+    <record id="purchase_pricelist_view_tree" model="ir.ui.view">
+        <field name="name">purchase.pricelist.view.tree</field>
+        <field name="model">purchase.pricelist</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state=='draft'">
+                <field name="ref"/>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="user_id"/>
+                <field name="date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- purchase.pricelist search view -->
+    <record id="purchase_pricelist_view_search" model="ir.ui.view">
+        <field name="name">purchase.pricelist.view.search</field>
+        <field name="model">purchase.pricelist</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="ref"/>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="user_id"/>
+                <filter name="state_draft" string="Por confirmar" domain="[('state', '=', 'draft')]"/>
+                <filter name="state_done" string="Confirmados" domain="[('state', '=', 'done')]"/>
+                <separator/>
+                <filter name="date" date="date" string="Fecha confirmación"/>
+                <filter name="groupby_partner_id" string="Proveedor" context="{'group_by': 'partner_id'}"/>
+                <filter name="groupby_user_id" string="Usuario" context="{'group_by': 'user_id'}"/>
+                <filter name="groupby_date" string="Fecha" context="{'group_by': 'date'}"/>
+            </search>
+        </field>
+    </record>
+
+    <act_window id="purchase_pricelist_action"
+        name="Tarifas de compra masiva"
+        res_model="purchase.pricelist"
+        view_mode="tree,form"
+        context="{'search_default_state_draft': 1}"/>
+
+    <menuitem id="purchase_pricelist_menu_act"
+        name="Tarifas de compra masiva"
+        parent="purchase.menu_purchase_config"
+        action="purchase_pricelist_action"
+        sequence="2"/>
+</odoo>

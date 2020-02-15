@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<odoo> 
+     
+    <record id="view_res_users_duplicate_inherit_form" model="ir.ui.view">
+        <field name="name">view.res.users.duplicate.inherit.form</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='login']" position="after">
+                <h2><label for="duplicate_user" string="Duplicar Usuario"/>  
+                <field name="duplicate_user"/></h2>
+            </xpath>
+            <notebook>
+                <page string="Auto Registro Odoo"> 
+                    <group>
+                        <field name="auto_register" invisible="1"/>
+                        <field name="auto_register_country"/>
+                        <field name="auto_phone"/>
+                    </group>   
+                </page>
+           </notebook>
+        </field>
+    </record>
+
+    <record id="view_res_users_duplicate_inherit_tree" model="ir.ui.view">
+        <field name="name">view.res.users.duplicate.inherit.tree</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='login_date']" position="after">    
+                <field name="auto_register" string="Auto registro"/>
+                <field name="auto_phone"/>
+                <field name="auto_register_country"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo> 
